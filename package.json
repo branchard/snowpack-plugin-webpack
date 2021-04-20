@@ -1,0 +1,69 @@
+{
+  "name": "snowpack-plugin-webpack",
+  "version": "0.0.1",
+  "description": "A Webpack 5 plugin for Snowpack",
+  "main": "build/index.js",
+  "typings": "build/main/index.d.ts",
+  "repository": "https://github.com/branchard/snowpack-plugin-webpack",
+  "license": "MIT",
+  "keywords": [
+    "snowpack",
+    "plugin",
+    "webpack",
+    "webpack5",
+    "webpack 5"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "ava",
+    "lint": "eslint src --ext .ts",
+    "version": "standard-version",
+    "reset": "git clean -dfx && git reset --hard && yarn",
+    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@ava/typescript": "^1.1.1",
+    "@types/node": "^14.14.41",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "ava": "^3.12.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.8.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-functional": "^3.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "standard-version": "^9.0.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
+  },
+  "files": [
+    "build",
+    "build/module",
+    "!**/*.spec.*",
+    "!**/*.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "ava": {
+    "failFast": true,
+    "timeout": "60s",
+    "typescript": {
+      "rewritePaths": {
+        "src/": "build/"
+      }
+    },
+    "files": [
+      "!build/module/**"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}

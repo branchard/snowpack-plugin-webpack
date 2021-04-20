@@ -5,6 +5,7 @@ on:
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
+    environment: default
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -14,10 +15,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: yarn install
       - run: yarn build
-      - run: printenv
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: cat /home/runner/work/_temp/.npmrc
       - run: yarn publish --verbose
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

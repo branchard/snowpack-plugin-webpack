@@ -21,5 +21,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: check
-      - run: "[[ ${{ steps.checkTag.outputs.exists }} -eq 'false' ]] || { echo >&2 'The version in package.json already exists.'; exit 1; }"
-        shell: bash
+      - run: echo >&2 'The tag found in package.json already exists.'; exit 1;
+        if: ${{ steps.checkTag.outputs.exists == 'true' }}

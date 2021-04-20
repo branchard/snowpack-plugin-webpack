@@ -9,8 +9,8 @@ on:
       - master
 
 jobs:
-  ava:
-    name: AVA test
+  jest:
+    name: Jest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,4 +18,12 @@ jobs:
         with:
           node-version: '14.x'
       - run: yarn install
-      - run: yarn test
+      - name: Test
+        run: yarn test:ci
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: JEST Tests
+          path: junit.xml
+          reporter: jest-junit

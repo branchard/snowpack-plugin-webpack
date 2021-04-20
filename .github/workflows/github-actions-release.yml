@@ -1,9 +1,9 @@
 name: Publish
 on:
   release:
-    types: [created]
+    types: [ created ]
 jobs:
-  build:
+  build_and_publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

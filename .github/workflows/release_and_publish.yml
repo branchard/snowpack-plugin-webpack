@@ -21,23 +21,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
-#  build_and_publish:
-#    runs-on: ubuntu-latest
-#    environment: default
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: actions/setup-node@v2
-#        with:
-#          node-version: '14.x'
-#          always-auth: true
-#          registry-url: 'https://registry.npmjs.org'
-#      - run: yarn install
-#      - run: yarn build
-#      - run: yarn publish --verbose
-#        env:
-#          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-#      - uses: actions/setup-node@v2
-#        with:
-#          registry-url: 'https://npm.pkg.github.com'
-#      - run: npm publish
+  build_and_publish:
+    needs: release
+    runs-on: ubuntu-latest
+    environment: default
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          always-auth: true
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Publish
+        run: yarn publish --verbose
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

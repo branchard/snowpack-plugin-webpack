@@ -22,4 +22,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: check
       - run: echo >&2 'The tag found in package.json already exists.'; exit 1;
-        if: ${{ steps.checkTag.outputs.exists == 'true' }}
+        if: ${{ steps.check.outputs.exists == 'true' }}

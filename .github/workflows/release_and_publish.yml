@@ -13,11 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Get version from package.json
-        run: VERSION=$(echo "`jq '.version' package.json`")
+        run: echo ::set-env name=version::$(jq -r '.version' package.json)
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{VERSION}}
+          tag_name: ${{ env.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #

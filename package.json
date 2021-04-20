@@ -22,8 +22,8 @@
     "reset": "git clean -dfx && git reset --hard && yarn",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
   },
-  "engines": {
-    "node": ">=10"
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
   },
   "dependencies": {},
   "devDependencies": {

@@ -10,14 +10,14 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Get version from package.json
-        run: echo ::set-env name=version::$(jq -r '.version' package.json)
-      - name: Release
+      - uses: actions/checkout@v2
+      - name: Retrieve version
+        run: echo ::set-output name=tag_name::$(jq -r '.version' package.json)
+        id: version
+      - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.version }}
+          tag_name: ${{ steps.version.outputs.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #

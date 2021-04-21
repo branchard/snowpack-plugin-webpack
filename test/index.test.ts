@@ -1,5 +1,8 @@
 import index from '../src/index';
 
-test('Index return test', () => {
-  expect(index()).toBe('test');
+describe('Index', () => {
+  test('Return test', () => {
+    expect(index()).toBe('test');
+  });
 });
+

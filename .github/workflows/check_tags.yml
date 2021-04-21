@@ -1,0 +1,25 @@
+name: Check tags
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check:
+    name: Check tags
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Retrieve version
+        run: echo ::set-output name=tag_name::$(jq -r '.version' package.json)
+        id: version
+      - name: Check tag
+        uses: mukunku/tag-exists-action@v1.0.0
+        with:
+          tag: v${{ steps.version.outputs.tag_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: check
+      - run: echo >&2 'The tag found in package.json already exists.'; exit 1;
+        if: ${{ steps.check.outputs.exists == 'true' }}
